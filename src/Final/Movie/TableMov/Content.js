@@ -89,41 +89,6 @@ function Content(props) {
       columns={state.columns}
       data={state.data}
       icons={tableIcons}
-      editable={{
-        onRowAdd: newData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data.push(newData);
-              axios.post('https://backendexample.sanbersy.com/api/movies')
-              .then(res => console.log(res.data));
-              setState({ ...state, data });
-            }, 600);
-          }),
-        onRowUpdate: (newData, oldData) =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data[data.indexOf(oldData)] = newData;
-              axios.put('https://backendexample.sanbersy.com/api/movies/', newData,{params: {id: state.id}})
-              .then(res => console.log(res.data));
-                setState({ ...state, data });
-              }, 600);
-          }),
-        onRowDelete: oldData =>
-          new Promise(resolve => {
-            setTimeout(() => {
-              resolve();
-              const data = [...state.data];
-              data.splice(data.indexOf(oldData), 1);
-              axios.delete('https://backendexample.sanbersy.com/api/movies/', oldData,{params: {id: state.id}})
-              .then(res => console.log(res.data));
-              setState({ ...state, data });
-            }, 600);
-          })
-      }}
     />
     </>
   );

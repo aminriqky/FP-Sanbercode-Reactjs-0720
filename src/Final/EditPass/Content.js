@@ -36,7 +36,6 @@ export default function SignIn() {
 
   const [signIn, setsignIn] =  useState(null)
   const { userHasAuthenticated } = useAppContext();
-  const [selectedId]  =  useState(0)
   const [fields, handleFieldChange] = useFormFields({
     username: "",
     password: "",
@@ -66,9 +65,9 @@ export default function SignIn() {
         }
       default:
         userHasAuthenticated(true);
-        axios.put(`https://backendexample.sanbersy.com/api/users/${selectedId}`, {username: fields.username, password: fields.password})
+        axios.put(`https://backendexample.sanbersy.com/api/users/${data.id}`, {username: fields.username, password: fields.newpass})
         .then(() => {
-          let dataUser = signIn.find(el=> el.id === selectedId)
+          let dataUser = signIn.find(el=> el.id === data.id)
           dataUser.password = fields.newpass
           setsignIn([...signIn])
       })
