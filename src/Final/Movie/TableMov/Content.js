@@ -52,8 +52,8 @@ function Content(props) {
 
   useEffect(() => {
     async function fetchData() {
-      let result = await axios("https://backendexample.sanbersy.com/api/movies");
-      let res = setState((prevState) => ({
+      const result = await axios("https://backendexample.sanbersy.com/api/movies");
+      const res = setState((prevState) => ({
         ...prevState,
         data: result.data
        }))
@@ -105,8 +105,10 @@ function Content(props) {
               resolve();
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
-              setState({ ...state, data });
-            }, 600);
+              axios.put('https://backendexample.sanbersy.com/api/movies/${id}', newData,{params: {id: state.id}})
+              .then(res => console.log(res.DataUser));
+                setState({ ...state, data });
+              }, 600);
           }),
         onRowDelete: oldData =>
           new Promise(resolve => {
