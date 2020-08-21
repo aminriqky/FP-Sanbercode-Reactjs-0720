@@ -96,6 +96,8 @@ function Content(props) {
               resolve();
               const data = [...state.data];
               data.push(newData);
+              axios.post('https://backendexample.sanbersy.com/api/movies')
+              .then(res => console.log(res.data));
               setState({ ...state, data });
             }, 600);
           }),
@@ -106,7 +108,7 @@ function Content(props) {
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
               axios.put('https://backendexample.sanbersy.com/api/movies/', newData,{params: {id: state.id}})
-              .then(res => console.log(res.DataUser));
+              .then(res => console.log(res.data));
                 setState({ ...state, data });
               }, 600);
           }),
@@ -116,6 +118,8 @@ function Content(props) {
               resolve();
               const data = [...state.data];
               data.splice(data.indexOf(oldData), 1);
+              axios.delete('https://backendexample.sanbersy.com/api/movies/', oldData,{params: {id: state.id}})
+              .then(res => console.log(res.data));
               setState({ ...state, data });
             }, 600);
           })
