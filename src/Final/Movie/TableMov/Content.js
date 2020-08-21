@@ -105,7 +105,7 @@ function Content(props) {
               resolve();
               const data = [...state.data];
               data[data.indexOf(oldData)] = newData;
-              axios.put('https://backendexample.sanbersy.com/api/movies/${id}', newData,{params: {id: state.id}})
+              axios.put('https://backendexample.sanbersy.com/api/movies', newData,{params: {id: state.id}})
               .then(res => console.log(res.DataUser));
                 setState({ ...state, data });
               }, 600);
