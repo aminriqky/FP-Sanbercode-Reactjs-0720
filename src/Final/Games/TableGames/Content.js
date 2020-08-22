@@ -43,7 +43,7 @@ function Content(props) {
       { title: "Release", field: "release", type: 'numeric' },
       { title: "Single Player", field: "singlePlayer", type: 'numeric' },
       { title: "Genre", field: "genre" },
-      { title: "Rating", field: "multiPlayer", type: 'numeric' },
+      { title: "MultiPlayer", field: "multiplayer", type: 'numeric' },
       { title: "Image URL", field: "image_url"}
     ],
       data: []
