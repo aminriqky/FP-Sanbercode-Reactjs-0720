@@ -86,6 +86,7 @@ function Header(props) {
           <Tab textColor="inherit" label="List Movie" href="/ListMov" value={0} />
           <Tab textColor="inherit" label="Review Movie" href="/RevMov" />
           <Tab textColor="inherit" label="Table Movie" href="/TableMov" />
+          <Tab textColor="inherit" label="Form Movie" href="/FormMov"/>
         </Tabs>
       </AppBar>
     </React.Fragment>

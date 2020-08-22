@@ -30,7 +30,7 @@ const styles = (theme) => ({
     margin: '40px 16px',
   },
   table: {
-    minWidth: 650,
+    maxWidth: 450,
   },
 });
 
@@ -40,12 +40,12 @@ function Content(props) {
     columns: [
       { title: "Title", field: "title" },
       { title: "Description", field: "description" },
-      { title: "Year", field: "year" },
-      { title: "Duration", field: "duration" },
+      { title: "Year", field: "year", type: 'numeric' },
+      { title: "Duration", field: "duration", type: 'numeric' },
       { title: "Genre", field: "genre" },
-      { title: "Rating", field: "rating" },
+      { title: "Rating", field: "rating", type: 'numeric' },
       { title: "Review", field: "review" },
-      { title: "Image", field: "image_url" }
+      { title: "Image URL", field: "image_url" }
     ],
       data: []
   });
@@ -89,6 +89,9 @@ function Content(props) {
       columns={state.columns}
       data={state.data}
       icons={tableIcons}
+      options={{
+        filtering: true
+      }}
     />
     </>
   );
