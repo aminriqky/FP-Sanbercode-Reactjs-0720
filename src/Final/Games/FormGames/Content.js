@@ -197,7 +197,7 @@ function Content(props) {
       <Toolbar>
       <Grid container spacing={2} alignItems="center">
         <Grid item>
-          <Typography color="textSecondary" align="center"><b>Search Title First Then Click Edit or Delete</b> (Case Sensitive)</Typography>
+          <Typography color="textSecondary" align="center"><b>Search Name First Then Click Edit or Delete</b> (Case Sensitive)</Typography>
         </Grid>
       </Grid>
       </Toolbar>
