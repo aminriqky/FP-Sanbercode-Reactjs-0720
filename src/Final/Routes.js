@@ -10,12 +10,16 @@ import SigninPage from './SignIn';
 import SignupPage from './SignUp';
 import EditPass from './EditPass/Paperbase';
 import FormMov from './Movie/FormMov/Paperbase';
+import FormGames from './Games/FormGames/Paperbase';
 
 const Routes = () => {
 
     return(
         <>
         <Switch>
+        <Route path="/FormGames">
+            <FormGames/>
+        </Route>
         <Route path="/FormMov">
             <FormMov/>
         </Route>

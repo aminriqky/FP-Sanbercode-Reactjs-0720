@@ -32,42 +32,42 @@ const styles = (theme) => ({
 function Content(props) {
   const { classes } = props;
 
-  const [daftarFilm, setDaftarFilm] =  useState(null)
-  const [input, setInput]  =  useState({title: "", description: "", year: 0, duration: 0, genre: "", rating: 1, review: "", image_url:""})
+  const [daftarGames, setDaftarGames] =  useState(null)
+  const [input, setInput]  =  useState({name: "", platform: "", release: 0, singlePlayer: 0, genre: "", multiplayer: 0, review: "", image_url:""})
   const [selectedId, setSelectedId]  =  useState(0)
   const [statusForm, setStatusForm]  =  useState("create")
   const [fields, handleFieldChange] = useFormFields({
-    title: ""
+    name: ""
   });
 
   useEffect( () => {
-    if (daftarFilm === null){
-      axios.get(`https://backendexample.sanbersy.com/api/movies`)
+    if (daftarGames === null){
+      axios.get(`https://backendexample.sanbersy.com/api/games`)
       .then(res => {
-        setDaftarFilm(res.data.map(el=>{ return {id: el.id, title: el.title, description: el.description, year: el.year, duration: el.duration, genre: el.genre, rating: el.rating, review: el.review, image_url: el.image_url}} ))
+        setDaftarGames(res.data.map(el=>{ return {id: el.id, name: el.name, platform: el.platform, release: el.release, singlePlayer: el.singlePlayer, genre: el.genre, multiplayer: el.multiplayer, image_url: el.image_url}} ))
       })
     }
-  }, [daftarFilm])
+  }, [daftarGames])
 
   const handleDelete = (event) => {
-    let idDataFilm = parseInt(selectedId)
+    let idDataGames = parseInt(selectedId)
 
-    let newdaftarfilm = daftarFilm.filter(el => el.id !== idDataFilm)
+    let newdaftargames = daftarGames.filter(el => el.id !== idDataGames)
 
-    axios.delete(`https://backendexample.sanbersy.com/api/movies/${idDataFilm}`)
+    axios.delete(`https://backendexample.sanbersy.com/api/games/${idDataGames}`)
     .then(res => {
       console.log(res)
     })
 
-    setDaftarFilm([...newdaftarfilm])
+    setDaftarGames([...newdaftargames])
     alert("Data Berhasil Dihapus");
   }
 
   const handleEdit = (event) =>{
-    let idDataFilm = parseInt(event.target.value)
-    let dataFilm = daftarFilm.find(x=> x.id === idDataFilm)
-    setInput({title: dataFilm.title, description: dataFilm.description, year: dataFilm.year, duration: dataFilm.duration, genre: dataFilm.genre, rating: dataFilm.rating, review: dataFilm.review, image_url: dataFilm.image_url})
-    setSelectedId(idDataFilm)
+    let idDataGames = parseInt(event.target.value)
+    let dataGames = daftarGames.find(x=> x.id === idDataGames)
+    setInput({name: dataGames.name, platform: dataGames.platform, release: dataGames.release, singlePlayer: dataGames.singlePlayer, genre: dataGames.genre, multiplayer: dataGames.multiplayer, review: dataGames.review, image_url: dataGames.image_url})
+    setSelectedId(idDataGames)
     setStatusForm("edit")
   }
 
@@ -75,24 +75,24 @@ function Content(props) {
     let typeOfInput = event.target.name
 
     switch (typeOfInput){
-      case "title":
+      case "name":
       {
-        setInput({...input, title: event.target.value});
+        setInput({...input, name: event.target.value});
         break
       }
-      case "description":
+      case "platform":
       {
-        setInput({...input, description: event.target.value});
+        setInput({...input, platform: event.target.value});
         break
       }
-      case "year":
+      case "release":
       {
-        setInput({...input, year: event.target.value});
+        setInput({...input, release: event.target.value});
           break
       }
-      case "duration":
+      case "singlePlayer":
       {
-        setInput({...input, duration: event.target.value});
+        setInput({...input, singlePlayer: event.target.value});
           break
       }
       case "genre":
@@ -100,9 +100,9 @@ function Content(props) {
         setInput({...input, genre: event.target.value});
           break
       }
-      case "rating":
+      case "multiplayer":
       {
-        setInput({...input, rating: event.target.value});
+        setInput({...input, multiplayer: event.target.value});
           break
       }
       case "review":
@@ -123,59 +123,59 @@ function Content(props) {
   const handleSubmit = (event) =>{
     event.preventDefault()
 
-    let title = input.title
-    let year = input.year.toString()
+    let name = input.name
+    let release = input.release.toString()
 
-    if (title.replace(/\s/g,'') !== "" && year.replace(/\s/g,'') !== ""){      
+    if (name.replace(/\s/g,'') !== "" && release.replace(/\s/g,'') !== ""){      
       if (statusForm === "create"){        
-        axios.post(`https://backendexample.sanbersy.com/api/movies`, {title: input.title, description: input.description, year: input.year, duration: input.duration, genre: input.genre, rating: input.rating, review: input.review, image_url: input.image_url})
+        axios.post(`https://backendexample.sanbersy.com/api/games`, {name: input.name, platform: input.platform, release: input.release, singlePlayer: input.singlePlayer, genre: input.genre, multiplayer: input.multiplayer, review: input.review, image_url: input.image_url})
         .then(res => {
-            setDaftarFilm([
-              ...daftarFilm, 
+            setDaftarGames([
+              ...daftarGames, 
               { id: res.data.id, 
-                title: input.title, 
-                description: input.description, 
-                year: input.year, 
-                duration: input.duration, 
+                name: input.name, 
+                platform: input.platform, 
+                release: input.release, 
+                singlePlayer: input.singlePlayer, 
                 genre: input.genre, 
-                rating: input.rating, 
+                multiplayer: input.multiplayer, 
                 review: input.review, 
                 image_url: input.image_url
               }])
         })
         alert("Data Berhasil Dibuat");
       }else if(statusForm === "edit"){
-        axios.put(`https://backendexample.sanbersy.com/api/movies/${selectedId}`, {title: input.title, description: input.description, year: input.year, duration: input.duration, genre: input.genre, rating: input.rating, review: input.review, image_url: input.image_url})
+        axios.put(`https://backendexample.sanbersy.com/api/games/${selectedId}`, {name: input.name, platform: input.platform, release: input.release, singlePlayer: input.singlePlayer, genre: input.genre, multiplayer: input.multiplayer, review: input.review, image_url: input.image_url})
         .then(() => {
-            let dataFilm = daftarFilm.find(el=> el.id === selectedId)
-            dataFilm.title = input.title
-            dataFilm.description = input.description
-            dataFilm.year = input.year
-            dataFilm.duration = input.duration
-            dataFilm.genre = input.genre
-            dataFilm.rating = input.rating
-            dataFilm.review = input.review
-            dataFilm.image_url = input.image_url
-            setDaftarFilm([...daftarFilm])
+            let dataGames = daftarGames.find(el=> el.id === selectedId)
+            dataGames.name = input.name
+            dataGames.platform = input.platform
+            dataGames.release = input.release
+            dataGames.singlePlayer = input.singlePlayer
+            dataGames.genre = input.genre
+            dataGames.multiplayer = input.multiplayer
+            dataGames.review = input.review
+            dataGames.image_url = input.image_url
+            setDaftarGames([...daftarGames])
         })
         alert("Data Berhasil Diubah");
       }
 
       setStatusForm("create")
       setSelectedId(0)
-      setInput({title: "", description: "", year: 0, duration: 0, genre: "", rating: 1, review: "", image_url:""})
+      setInput({name: "", platform: "", release: 0, singlePlayer: 0, genre: "", multiplayer: 1, review: "", image_url:""})
     }
   }
 
   async function handleSearch(event) {
     event.preventDefault()
 
-    let res = await axios.get(`https://backendexample.sanbersy.com/api/movies`)
+    let res = await axios.get(`https://backendexample.sanbersy.com/api/games`)
     let data = res.data;
-    let idData = {title: fields.title}
-    let dataMov = data.find(x=> x.title === idData.title)
-    if (dataMov != null ) {
-      switch (dataMov){
+    let idData = {name: fields.name}
+    let dataGam = data.find(x=> x.name === idData.name)
+    if (dataGam != null ) {
+      switch (dataGam){
         case "undefined":
         {
           alert("Undefined");
@@ -183,7 +183,7 @@ function Content(props) {
         }
       default:
         alert("Data Telah Ditemukan")
-        setSelectedId(dataMov.id)
+        setSelectedId(dataGam.id)
       }
     } else {
       alert("Undefined");
@@ -207,7 +207,7 @@ function Content(props) {
       <div className={classes.contentWrapper}>
       <form noValidate autoComplete="off" onSubmit={handleSearch}>
         <Grid item>
-        <TextField margin="normal" label="Title" variant="filled" type="text" id="title" name="title" value={fields.title} onChange={handleFieldChange}/>
+        <TextField margin="normal" label="Name" variant="filled" type="text" id="name" name="name" value={fields.name} onChange={handleFieldChange}/>
         </Grid>
         <br/>
         <center>
@@ -237,23 +237,21 @@ function Content(props) {
       <div className={classes.contentWrapper}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
         <Grid item>
-          <TextField margin="normal" id="filled-basic" label="Title" variant="filled" type="text" name="title" value={input.title} onChange={handleChange}/>
+        <TextField margin="normal" id="filled-basic" label="Name" variant="filled" type="text" name="name" value={input.name} onChange={handleChange}/>
           &emsp;
           <TextField margin="normal" id="filled-basic" label="Genre" variant="filled" type="text" name="genre" value={input.genre} onChange={handleChange}/>
           &emsp;
-          <TextField margin="normal" id="filled-basic" inputProps={{ min: 0, max: 2020}} label="Year" variant="filled" type="number" name="year" value={input.year} onChange={handleChange}/>
+          <TextField margin="normal" id="filled-basic" label="Release" inputProps={{ min: 0, max: 2020}} variant="filled" type="number" name="release" value={input.release} onChange={handleChange}/>
           &emsp;
-          <TextField margin="normal" id="filled-basic" label="Duration" variant="filled" type="number" name="duration" value={input.duration} onChange={handleChange}/>
+          <TextField margin="normal" id="filled-basic" label="SinglePlayer" inputProps={{ min: 0, max: 1}} variant="filled" type="number" name="singlePlayer" value={input.singlePlayer} onChange={handleChange}/>
           </Grid>
-        <center>
+          <center>
           <Grid item>
-          <TextField multiline="true" margin="normal" id="filled-basic" label="Image URL" variant="filled" type="text" name="image_url" value={input.image_url} onChange={handleChange}/>
+          <TextField margin="normal" id="filled-basic" label="Image URL" variant="filled" type="text" name="image_url" value={input.image_url} onChange={handleChange}/>
           &emsp;
-          <TextField margin="normal" id="filled-basic" inputProps={{ min: 1, max: 10}} label="Rating" variant="filled" type="number" name="rating" value={input.rating} onChange={handleChange}/>
+          <TextField margin="normal" id="filled-basic" label="Multiplayer" inputProps={{ min: 0, max: 1}} variant="filled" type="number" name="multiplayer" value={input.multiplayer} onChange={handleChange}/>
           &emsp;
-          <TextField multiline="true" margin="normal" id="filled-basic" label="Description" variant="filled" type="text" name="description" value={input.description} onChange={handleChange}/>
-          &emsp;
-          <TextField multiline="true" margin="normal" id="filled-basic" label="Review" variant="filled" type="text" name="review" value={input.review} onChange={handleChange}/>
+          <TextField margin="normal" id="filled-basic" label="Platform" variant="filled" type="text" name="platform" value={input.platform} onChange={handleChange}/>
         </Grid>
         <br/>
         <Button variant="contained" color="primary" type="submit">Send&ensp;<SendIcon/></Button>

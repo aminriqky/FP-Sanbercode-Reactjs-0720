@@ -82,11 +82,11 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={1} textColor="inherit">
+        <Tabs value={3} textColor="inherit">
           <Tab textColor="inherit" label="List Games" href="/ListGames"/>
-          <Tab textColor="inherit" label="Data Games" href="/DataGames" value={1} />
-          <Tab textColor="inherit" label="Table Games" href="/TableGames"/>
-          <Tab textColor="inherit" label="Form Games" href="/FormGames"/>
+          <Tab textColor="inherit" label="Data Games" href="/DataGames" />
+          <Tab textColor="inherit" label="Table Games" href="/TableGames" />
+          <Tab textColor="inherit" label="Form Games" href="/FormGames" value={3}/>
         </Tabs>
       </AppBar>
     </React.Fragment>
