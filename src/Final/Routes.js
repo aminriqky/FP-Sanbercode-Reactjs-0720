@@ -18,7 +18,7 @@ const Routes = () => {
     return(
         <>
         <Switch>
-        <Route path="/assetlinks.json">
+        <Route path="/assetlinks">
             <Assetlinks/>
         </Route>
         <Route path="/FormGames">
