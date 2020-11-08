@@ -11,16 +11,12 @@ import SignupPage from './SignUp';
 import EditPass from './EditPass/Paperbase';
 import FormMov from './Movie/FormMov/Paperbase';
 import FormGames from './Games/FormGames/Paperbase';
-import Assetlinks from '../assetlinks.json';
 
 const Routes = () => {
 
     return(
         <>
         <Switch>
-        <Route path="/assetlinks">
-            <Assetlinks/>
-        </Route>
         <Route path="/FormGames">
             <FormGames/>
         </Route>

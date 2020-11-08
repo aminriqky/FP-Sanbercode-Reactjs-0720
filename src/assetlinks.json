@@ -1,5 +1,0 @@
-[{
-      "relation": ["delegate_permission/common.handle_all_urls"],
-      "target" : { "namespace": "android_app", "package_name": "app.netlify.confident_einstein_0d1580.twa",
-                   "sha256_cert_fingerprints": ["B1:0F:85:9A:F7:9A:24:C1:36:60:43:5B:CE:D1:32:C4:53:51:05:1A:BE:7C:66:40:18:95:68:C3:D4:EC:E0:50"] }
-    }]
