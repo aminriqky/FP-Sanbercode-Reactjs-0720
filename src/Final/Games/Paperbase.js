@@ -1,16 +1,12 @@
-import React, { lazy, Suspense } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { createMuiTheme, ThemeProvider, withStyles } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from '@material-ui/core/Typography';
 import Link from '@material-ui/core/Link';
-import Navigator from '../Navigator';
+import Navigator from './Navigator';
 import Header from './Header';
-
-const Content = lazy(() => import('./Content'));
-
-const renderLoader = () => <center><h2>Loading...</h2></center>;
 
 function Copyright() {
   return (
@@ -160,7 +156,6 @@ const styles = {
   },
   footer: {
     padding: theme.spacing(2),
-    background: '#eaeff1',
   },
 };
 
@@ -191,11 +186,6 @@ function Paperbase(props) {
         </nav>
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
-          <main className={classes.main}>
-          <Suspense fallback={renderLoader()}>
-            <Content />
-          </Suspense>
-          </main>
           <footer className={classes.footer}>
             <Copyright />
           </footer>

@@ -17,7 +17,7 @@ import { useFormFields } from "../../hooksLib";
 
 const styles = (theme) => ({
   paper: {
-    minWidth: 650,
+    maxWidth: 936,
     margin: 'auto',
     overflow: 'hidden',
   },
@@ -236,6 +236,7 @@ function Content(props) {
     <Grid container direction="row" justify="center" alignItems="center">
       <div className={classes.contentWrapper}>
       <form noValidate autoComplete="off" onSubmit={handleSubmit}>
+      <center>
         <Grid item>
           <TextField margin="normal" id="filled-basic" label="Title" variant="filled" type="text" name="title" value={input.title} onChange={handleChange}/>
           &emsp;
@@ -245,7 +246,6 @@ function Content(props) {
           &emsp;
           <TextField margin="normal" id="filled-basic" label="Duration" variant="filled" type="number" name="duration" value={input.duration} onChange={handleChange}/>
           </Grid>
-        <center>
           <Grid item>
           <TextField multiline="true" margin="normal" id="filled-basic" label="Image URL" variant="filled" type="text" name="image_url" value={input.image_url} onChange={handleChange}/>
           &emsp;
@@ -257,7 +257,7 @@ function Content(props) {
         </Grid>
         <br/>
         <Button variant="contained" color="primary" type="submit">Send&ensp;<SendIcon/></Button>
-        </center>
+      </center>
       </form>
       </div>
     </Grid>

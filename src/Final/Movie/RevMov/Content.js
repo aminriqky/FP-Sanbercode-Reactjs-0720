@@ -9,32 +9,19 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import axios from "axios"
+import "./styles.css"
 
 const styles = (theme) => ({
   paper: {
-    maxWidth: 936,
+    maxWidth: 1280,
     margin: 'auto',
     overflow: 'hidden',
-  },
-  contentWrapper: {
-    margin: '40px 16px',
-  },
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  box: {
-    backgroundColor: theme.palette.background.paper,
-    border: '2px solid #000',
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 4, 3),
   },
 });
 
 function Content(props) {
-
   const { classes } = props;
+
   const [daftarFilm, setDaftarFilm] =  useState(null)
 
   useEffect( () => {
@@ -62,15 +49,14 @@ function Content(props) {
                 </Grid>
               </Toolbar>
             </AppBar>
-            <div className={classes.contentWrapper}>
-            <Grid container spacing={6} alignItems="center">
-              <Grid item>
-                <ButtonBase className={classes.image} style={{borderRadius:"2%"}}>
+            <div class="flex">
+              <div>
+                <ButtonBase style={{borderRadius:"2%"}}>
                   <img src={item.image_url} style={{borderRadius:"2%", height:"auto", maxWidth:"250px"}} alt=""/>
                 </ButtonBase>
-              </Grid>
-              <Grid item>
-              <div className={classes.contentWrapper} align="left">
+              </div>
+                &emsp;
+              <div>
                 <Typography color="textSecondary" align="left"><b>Description : </b>{item.description}</Typography>
                 <Typography color="textSecondary" align="left"><b>Year : </b>{item.year}</Typography>
                 <Typography color="textSecondary" align="left"><b>Duration : </b>{item.duration} Menit</Typography>
@@ -79,8 +65,6 @@ function Content(props) {
                   <Rating name="customized-10" defaultValue={item.rating} max={10} readOnly />
                 <Typography color="textSecondary" align="left"><b>Review : </b>{item.review}</Typography>
               </div>
-              </Grid>
-            </Grid>
             </div>
             </Paper>
             <br/>

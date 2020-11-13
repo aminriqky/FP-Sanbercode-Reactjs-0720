@@ -74,7 +74,7 @@ function Navigator(props) {
               </ListItemText>
             </ListItem>
               <ListItem button className={clsx(classes.item)}>
-                <ListItemLink href="/ListMov">
+                <ListItemLink href="/Movie">
                 <ListItemIcon className={classes.itemIcon}>
                   <MovieIcon />
                 </ListItemIcon>
@@ -84,7 +84,7 @@ function Navigator(props) {
                 </ListItemLink>
               </ListItem>
               <ListItem button className={clsx(classes.item && classes.itemActiveItem)}>
-                <ListItemLink href="/ListGames">
+                <ListItemLink href="/Games">
                 <ListItemIcon className={classes.itemIcon}>
                   <SportsEsportsIcon />
                 </ListItemIcon>

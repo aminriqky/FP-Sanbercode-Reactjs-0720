@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
@@ -10,8 +10,49 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+
+const ListMov = lazy(() => import('./ListMov/Content'));
+const RevMov = lazy(() => import('./RevMov/Content'));
+const TableMov = lazy(() => import('./TableMov/Content'));
+const FormMov = lazy(() => import('./FormMov/Content'));
+
+const renderLoader = () => <center><Typography>Loading...</Typography></center>;
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 const styles = (theme) => ({
   secondaryBar: {
@@ -37,6 +78,11 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <React.Fragment>
@@ -69,7 +115,7 @@ function Header(props) {
           <Grid container alignItems="center" spacing={1}>
             <Grid item xs>
               <Typography color="inherit" variant="h5" component="h1">
-                Games
+                Movie
               </Typography>
             </Grid>
           </Grid>
@@ -82,13 +128,33 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={1} textColor="inherit">
-          <Tab textColor="inherit" label="List Games" href="/ListGames"/>
-          <Tab textColor="inherit" label="Data Games" href="/DataGames" value={1} />
-          <Tab textColor="inherit" label="Table Games" href="/TableGames"/>
-          <Tab textColor="inherit" label="Form Games" href="/FormGames"/>
+        <Tabs value={value} onChange={handleChange} textColor="inherit">
+          <Tab textColor="inherit" label="List Movie" {...a11yProps(0)} />
+          <Tab textColor="inherit" label="Review Movie" {...a11yProps(1)} />
+          <Tab textColor="inherit" label="Table Movie" {...a11yProps(2)} />
+          <Tab textColor="inherit" label="Form Movie" {...a11yProps(3)}/>
         </Tabs>
       </AppBar>
+      <TabPanel value={value} index={0}>
+      <Suspense fallback={renderLoader()}>
+        <ListMov/>
+      </Suspense>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+      <Suspense fallback={renderLoader()}>
+        <RevMov/>
+      </Suspense>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+      <Suspense fallback={renderLoader()}>
+        <TableMov/>
+      </Suspense>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+      <Suspense fallback={renderLoader()}>
+        <FormMov/>
+      </Suspense>
+      </TabPanel>
     </React.Fragment>
   );
 }

@@ -8,15 +8,13 @@ import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { withStyles } from '@material-ui/core/styles';
 import axios from "axios"
+import "./styles.css"
 
 const styles = (theme) => ({
   paper: {
-    maxWidth: 936,
+    maxWidth: 1280,
     margin: 'auto',
     overflow: 'hidden',
-  },
-  contentWrapper: {
-    margin: '40px 16px',
   },
 });
 
@@ -50,23 +48,20 @@ function Content(props) {
                 </Grid>
               </Toolbar>
             </AppBar>
-            <div className={classes.contentWrapper}>
-            <Grid container spacing={6} alignItems="center">
-              <Grid item>
+            <div class="flex">
+              <div>
                 <ButtonBase className={classes.image} style={{borderRadius:"2%"}}>
                   <img src={item.image_url} style={{borderRadius:"2%", height:"auto", maxWidth:"250px"}} alt=""/>
                 </ButtonBase>
-              </Grid>
-              <Grid item>
-              <div className={classes.contentWrapper} align="left">
+              </div>
+                &emsp;
+              <div>
                 <Typography color="textSecondary" align="left"><b>Platform : </b>{item.platform}</Typography>
                 <Typography color="textSecondary" align="left"><b>Release : </b>{item.release}</Typography>
                 <Typography color="textSecondary" align="left"><b>Single Player : </b>{item.singlePlayer}</Typography>
                 <Typography color="textSecondary" align="left"><b>Genre : </b>{item.genre}</Typography>
                 <Typography color="textSecondary" align="left"><b>Multiplayer : </b>{item.multiplayer}</Typography>
               </div>
-              </Grid>
-            </Grid>
             </div>
             </Paper>
             <br/>

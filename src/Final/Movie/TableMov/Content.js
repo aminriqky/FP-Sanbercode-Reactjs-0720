@@ -22,7 +22,7 @@ import ViewColumn from '@material-ui/icons/ViewColumn';
 
 const styles = (theme) => ({
   paper: {
-    minWidth: 650,
+    maxWidth: 1280,
     margin: 'auto',
     overflow: 'hidden',
   },

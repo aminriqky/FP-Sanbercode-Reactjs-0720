@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Grid from '@material-ui/core/Grid';
@@ -10,8 +10,49 @@ import Tabs from '@material-ui/core/Tabs';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
+import Box from '@material-ui/core/Box';
+
+const ListGames = lazy(() => import('./ListGames/Content'));
+const DataGames = lazy(() => import('./DataGames/Content'));
+const TableGames = lazy(() => import('./TableGames/Content'));
+const FormGames = lazy(() => import('./FormGames/Content'));
+
+const renderLoader = () => <center><Typography>Loading...</Typography></center>;
 
 const lightColor = 'rgba(255, 255, 255, 0.7)';
+
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`simple-tabpanel-${index}`}
+      aria-labelledby={`simple-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box p={3}>
+          <Typography>{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.any.isRequired,
+  value: PropTypes.any.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `simple-tab-${index}`,
+    'aria-controls': `simple-tabpanel-${index}`,
+  };
+}
 
 const styles = (theme) => ({
   secondaryBar: {
@@ -37,6 +78,11 @@ const styles = (theme) => ({
 
 function Header(props) {
   const { classes, onDrawerToggle } = props;
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
 
   return (
     <React.Fragment>
@@ -82,13 +128,33 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={3} textColor="inherit">
-          <Tab textColor="inherit" label="List Games" href="/ListGames"/>
-          <Tab textColor="inherit" label="Data Games" href="/DataGames" />
-          <Tab textColor="inherit" label="Table Games" href="/TableGames" />
-          <Tab textColor="inherit" label="Form Games" href="/FormGames" value={3}/>
+        <Tabs value={value} onChange={handleChange} textColor="inherit">
+          <Tab textColor="inherit" label="List Games" {...a11yProps(0)} />
+          <Tab textColor="inherit" label="Data Games" {...a11yProps(1)} />
+          <Tab textColor="inherit" label="Table Games" {...a11yProps(2)}/>
+          <Tab textColor="inherit" label="Form Games" {...a11yProps(3)}/>
         </Tabs>
       </AppBar>
+      <TabPanel value={value} index={0}>
+      <Suspense fallback={renderLoader()}>
+        <ListGames/>
+      </Suspense>
+      </TabPanel>
+      <TabPanel value={value} index={1}>
+      <Suspense fallback={renderLoader()}>
+        <DataGames/>
+      </Suspense>
+      </TabPanel>
+      <TabPanel value={value} index={2}>
+      <Suspense fallback={renderLoader()}>
+        <TableGames/>
+      </Suspense>
+      </TabPanel>
+      <TabPanel value={value} index={3}>
+      <Suspense fallback={renderLoader()}>
+        <FormGames/>
+      </Suspense>
+      </TabPanel>
     </React.Fragment>
   );
 }
