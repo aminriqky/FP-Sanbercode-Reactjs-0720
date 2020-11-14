@@ -137,34 +137,26 @@ function Header(props) {
         </Tabs>
       </AppBar>
       <SwipeableViews index={value} onChange={handleChange}>
-      <div>
       <TabPanel value={value} index={0}>
       <Suspense fallback={renderLoader()}>
         <ListMov/>
       </Suspense>
       </TabPanel>
-      </div>
-      <div>
       <TabPanel value={value} index={1}>
       <Suspense fallback={renderLoader()}>
         <RevMov/>
       </Suspense>
       </TabPanel>
-      </div>
-      <div>
       <TabPanel value={value} index={2}>
       <Suspense fallback={renderLoader()}>
         <TableMov/>
       </Suspense>
       </TabPanel>
-      </div>
-      <div>
       <TabPanel value={value} index={3}>
       <Suspense fallback={renderLoader()}>
         <FormMov/>
       </Suspense>
       </TabPanel>
-      </div>
       </SwipeableViews>
     </React.Fragment>
   );
