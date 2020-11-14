@@ -11,6 +11,7 @@ import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
 import Box from '@material-ui/core/Box';
+import SwipeableViews from 'react-swipeable-views';
 
 const ListGames = lazy(() => import('./ListGames/Content'));
 const DataGames = lazy(() => import('./DataGames/Content'));
@@ -128,33 +129,43 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={value} onChange={handleChange} textColor="inherit">
+        <Tabs variant="fullWidth" value={value} onChange={handleChange} textColor="inherit">
           <Tab textColor="inherit" label="List Games" {...a11yProps(0)} />
           <Tab textColor="inherit" label="Data Games" {...a11yProps(1)} />
           <Tab textColor="inherit" label="Table Games" {...a11yProps(2)}/>
           <Tab textColor="inherit" label="Form Games" {...a11yProps(3)}/>
         </Tabs>
       </AppBar>
+      <SwipeableViews index={value} onChange={handleChange}>
+      <div>
       <TabPanel value={value} index={0}>
       <Suspense fallback={renderLoader()}>
         <ListGames/>
       </Suspense>
       </TabPanel>
+      </div>
+      <div>
       <TabPanel value={value} index={1}>
       <Suspense fallback={renderLoader()}>
         <DataGames/>
       </Suspense>
       </TabPanel>
+      </div>
+      <div>
       <TabPanel value={value} index={2}>
       <Suspense fallback={renderLoader()}>
         <TableGames/>
       </Suspense>
       </TabPanel>
+      </div>
+      <div>
       <TabPanel value={value} index={3}>
       <Suspense fallback={renderLoader()}>
         <FormGames/>
       </Suspense>
       </TabPanel>
+      </div>
+      </SwipeableViews>
     </React.Fragment>
   );
 }
