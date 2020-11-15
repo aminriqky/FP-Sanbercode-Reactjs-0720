@@ -85,6 +85,10 @@ function Header(props) {
     setValue(newValue);
   };
 
+  const handleChangeIndex = value => {
+    setValue(value);
+  };
+
   return (
     <React.Fragment>
       <AppBar color="primary" position="static" elevation={0}>
@@ -136,7 +140,7 @@ function Header(props) {
           <Tab textColor="inherit" label="Form Games" {...a11yProps(3)}/>
         </Tabs>
       </AppBar>
-      <SwipeableViews index={value} onChange={handleChange}>
+      <SwipeableViews index={value} onChangeIndex={handleChangeIndex}>
       <TabPanel value={value} index={0}>
       <Suspense fallback={renderLoader()}>
         <ListGames/>
