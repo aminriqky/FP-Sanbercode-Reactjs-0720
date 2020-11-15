@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react"
 import axios from "axios"
+import { useHistory } from "react-router-dom"
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +13,6 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useAppContext } from "./contextLib";
-import { useHistory } from "react-router-dom";
 import { useFormFields } from "./hooksLib";
 
 function Copyright() {
@@ -52,8 +52,8 @@ export default function SignIn() {
   const classes = useStyles();
 
   const [signIn, setsignIn] =  useState(null)
-  const { userHasAuthenticated } = useAppContext();
   const history = useHistory();
+  const {userHasAuthenticated } = useAppContext();
   const [fields, handleFieldChange] = useFormFields({
     username: "",
     password: ""
@@ -81,8 +81,9 @@ export default function SignIn() {
           break
         }
       default:
+        history.push('/Movie');
         userHasAuthenticated(true);
-        history.push("/Movie");
+        sessionStorage.setItem("context", true);
       }
     } else {
       alert("Invalid Username or Password");

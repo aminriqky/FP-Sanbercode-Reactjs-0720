@@ -12,9 +12,10 @@ import MovieIcon from '@material-ui/icons/Movie';
 import SportsEsportsIcon from '@material-ui/icons/SportsEsports';
 import VpnKeyIcon from '@material-ui/icons/VpnKey';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import { useAppContext } from "../contextLib";
 
 function ListItemLink(props) {
-  return <ListItem button component="a" {...props} />;
+  return <ListItem style={{color: "white"}} button component="a" {...props} />
 }
 
 const styles = (theme) => ({
@@ -26,8 +27,8 @@ const styles = (theme) => ({
     color: theme.palette.common.white,
   },
   item: {
-    paddingTop: 1,
-    paddingBottom: 1,
+    paddingTop: 10,
+    paddingBottom: 10,
     color: 'rgba(255, 255, 255, 0.7)',
     '&:hover,&:focus': {
       backgroundColor: 'rgba(255, 255, 255, 0.08)',
@@ -43,9 +44,6 @@ const styles = (theme) => ({
     fontSize: 24,
     color: theme.palette.common.white,
   },
-  itemActiveItem: {
-    color: '#4fc3f7',
-  },
   itemPrimary: {
     fontSize: 'inherit',
   },
@@ -60,6 +58,14 @@ const styles = (theme) => ({
 
 function Navigator(props) {
   const { classes, ...other } = props;
+  const { userHasAuthenticated } = useAppContext();
+
+  function logOut(e) {
+    e.preventDefault()
+
+    userHasAuthenticated(false);
+    sessionStorage.clear();
+  }
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -73,51 +79,43 @@ function Navigator(props) {
                 Entertainment
               </ListItemText>
             </ListItem>
-              <ListItem button className={clsx(classes.item && classes.itemActiveItem)}>
-                <ListItemLink href="/Movie">
+              <ListItemLink style={{color: '#4fc3f7'}} className={clsx(classes.item)} href="/Movie">
                 <ListItemIcon className={classes.itemIcon}>
                   <MovieIcon />
                 </ListItemIcon>
                 <ListItemText classes={{primary: classes.itemPrimary,}}>
                   Movie
                 </ListItemText>
-                </ListItemLink>
-              </ListItem>
-              <ListItem button className={clsx(classes.item)}>
-                <ListItemLink href="/Games">
+              </ListItemLink>
+              <ListItemLink className={clsx(classes.item)} href="/Games">
                 <ListItemIcon className={classes.itemIcon}>
                   <SportsEsportsIcon />
                 </ListItemIcon>
                 <ListItemText classes={{primary: classes.itemPrimary,}}>
                   Games
                 </ListItemText>
-                </ListItemLink>
-              </ListItem>
+              </ListItemLink>
             <Divider className={classes.divider} />
             <ListItem className={classes.categoryHeader} >
               <ListItemText classes={{primary: classes.categoryHeaderPrimary,}}>
                 Setting
               </ListItemText>
             </ListItem>
-            <ListItem button className={clsx(classes.item)}>
-                <ListItemLink href="/EditPass">
+              <ListItemLink className={clsx(classes.item)} href="/EditPass">
                 <ListItemIcon className={classes.itemIcon}>
                   <VpnKeyIcon />
                 </ListItemIcon>
                 <ListItemText classes={{primary: classes.itemPrimary,}}>
                   Edit Password
                 </ListItemText>
-                </ListItemLink>
-              </ListItem>
-              <ListItem button className={clsx(classes.item)}>
-                <ListItemLink href="/">
+              </ListItemLink>
+              <ListItem button onClick={logOut} className={clsx(classes.item)}>
                 <ListItemIcon className={classes.itemIcon}>
                   <ExitToAppIcon />
                 </ListItemIcon>
                 <ListItemText classes={{primary: classes.itemPrimary,}}>
                   Logout
                 </ListItemText>
-                </ListItemLink>
               </ListItem>
           </React.Fragment>
       </List>

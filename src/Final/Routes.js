@@ -1,31 +1,33 @@
 import React from "react"
-import { Switch, Route } from "react-router-dom";
+import { Switch } from "react-router-dom";
 import Movie from './Movie/Paperbase';
 import Games from './Games/Paperbase';
 import SigninPage from './SignIn';
 import SignupPage from './SignUp';
 import EditPass from './EditPass/Paperbase';
+import AuthenticatedRoute from "./AuthenticatedRoute";
+import UnauthenticatedRoute from "./UnauthenticatedRoute";
 
 const Routes = () => {
 
     return(
         <>
         <Switch>
-        <Route path="/EditPass">
+        <AuthenticatedRoute path="/EditPass">
             <EditPass/>
-        </Route>
-        <Route path="/SignUp">
-            <SignupPage/>
-        </Route>
-        <Route path="/Games">
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/Games">
             <Games/>
-        </Route>
-        <Route path="/Movie">
+        </AuthenticatedRoute>
+        <AuthenticatedRoute path="/Movie">
             <Movie/>
-        </Route>
-        <Route path="/">
+        </AuthenticatedRoute>
+        <UnauthenticatedRoute path="/SignUp">
+            <SignupPage/>
+        </UnauthenticatedRoute>
+        <UnauthenticatedRoute path="/">
             <SigninPage/>
-        </Route>
+        </UnauthenticatedRoute>
         </Switch>
         </>
     );

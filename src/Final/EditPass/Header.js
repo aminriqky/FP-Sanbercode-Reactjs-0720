@@ -82,8 +82,8 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab textColor="inherit" label="Edit Password" href="/EditPass" value={0}/>
+        <Tabs variant="fullWidth" value={0} textColor="inherit">
+          <Tab textColor="inherit" label="Edit Password" value={0}/>
         </Tabs>
       </AppBar>
     </React.Fragment>
