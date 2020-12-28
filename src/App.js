@@ -17,12 +17,11 @@ function App() {
       let x = await sessionStorage.getItem("context");
       userHasAuthenticated(x);
     }
-    catch(e) {
-      if (e !== 'No current user') {
-        alert(e);
+    catch(x) {
+      if (x !== 'false') {
+        alert('User Not Found');
       }
     }
-  
     setIsAuthenticating(false);
   }
 

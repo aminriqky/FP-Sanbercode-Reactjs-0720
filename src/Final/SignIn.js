@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react"
+import React from "react"
 import axios from "axios"
 import { useHistory } from "react-router-dom"
 import Avatar from '@material-ui/core/Avatar';
@@ -51,22 +51,12 @@ const useStyles = makeStyles((theme) => ({
 export default function SignIn() {
   const classes = useStyles();
 
-  const [signIn, setsignIn] =  useState(null)
   const history = useHistory();
   const {userHasAuthenticated } = useAppContext();
   const [fields, handleFieldChange] = useFormFields({
     username: "",
     password: ""
   });
-
-  useEffect( () => {
-    if (signIn === null){
-      axios.get(`https://backendexample.sanbersy.com/api/users`)
-      .then(res => {
-        setsignIn(res.data.map(el=>{ return {id: el.id, username: el.username, password: el.password}} ))
-      })
-    }
-  }, [signIn])
 
   async function handleSubmit(e) {
     e.preventDefault()
